@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { PDFDocument } from 'pdf-lib';
 import { NextSeo } from 'next-seo';
-import ImageEditModal from '@/components/ImageEditor/ImageEditModal';
+// import ImageEditModal from '@/components/ImageEditor/ImageEditModal';
 import PdfPreview from '@/components/PdfEditor/PdfPreview';
 import ImageGrid from '@/components/JpgToPdf/ImageGrid';
 // import { convertPdfToImages } from '@/services/pdfService';
@@ -318,14 +318,14 @@ export default function PdfEditorPage() {
             </div>
           )}
 
-          {isEditModalOpen && (
+          {/* {isEditModalOpen && (
             <ImageEditModal
               isOpen={isEditModalOpen}
               onClose={() => setIsEditModalOpen(false)}
               image={selectedImage}
               onSave={handleSaveEditedImage}
             />
-          )}
+          )} */}
 
           <div className="mt-12 prose prose-sm max-w-none">
             <h2 className="text-xl font-semibold mb-4">How to Use:</h2>
