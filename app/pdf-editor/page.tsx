@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { PDFDocument } from 'pdf-lib';
-import { NextSeo } from 'next-seo';
+//import { NextSeo } from 'next-seo';
 // import ImageEditModal from '@/components/ImageEditor/ImageEditModal';
 // import PdfPreview from '@/components/PdfEditor/PdfPreview';
 // import ImageGrid from '@/components/JpgToPdf/ImageGrid';
@@ -202,7 +202,7 @@ export default function PdfEditorPage() {
 
   return (
     <>
-      <NextSeo
+      {/* <NextSeo
         title="PDF Image Editor - Edit PDF Pages as Images | Free Online Tool"
         description={SEO_DESCRIPTION}
         canonical="https://yourdomain.com/pdf-editor"
@@ -235,7 +235,7 @@ export default function PdfEditorPage() {
             content: 'PDF Image Editor'
           }
         ]}
-      />
+      /> */}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold text-center mb-4">PDF Image Editor</h1>
@@ -335,8 +335,8 @@ export default function PdfEditorPage() {
               <li>Wait for the PDF pages to be converted to images</li>
               <li>Click on any image to edit it using our built-in editor</li>
               <li>Drag and drop images to rearrange pages</li>
-              <li>Add more images if needed using the "Add Images" button</li>
-              <li>Click "Download PDF" to save your edited document</li>
+              {/* <li>Add more images if needed using the "Add Images" button</li> */}
+              {/* <li>Click "Download PDF" to save your edited document</li> */}
             </ol>
 
             <h2 className="text-xl font-semibold mt-8 mb-4">Privacy & Security</h2>
