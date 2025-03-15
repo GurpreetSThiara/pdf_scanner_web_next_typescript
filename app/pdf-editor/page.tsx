@@ -202,7 +202,7 @@ export default function PdfEditorPage() {
 
   return (
     <>
-      <NextSeo
+      {/* <NextSeo
         title="PDF Image Editor - Edit PDF Pages as Images | Free Online Tool"
         description={SEO_DESCRIPTION}
         canonical="https://yourdomain.com/pdf-editor"
@@ -235,7 +235,7 @@ export default function PdfEditorPage() {
             content: 'PDF Image Editor'
           }
         ]}
-      />
+      /> */}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold text-center mb-4">PDF Image Editor</h1>
