@@ -1,11 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { PDFDocument } from 'pdf-lib';
-//import { NextSeo } from 'next-seo';
-// import ImageEditModal from '@/components/ImageEditor/ImageEditModal';
-// import PdfPreview from '@/components/PdfEditor/PdfPreview';
-// import ImageGrid from '@/components/JpgToPdf/ImageGrid';
-// import { convertPdfToImages } from '@/services/pdfService';
+import { NextSeo } from 'next-seo';
+import ImageEditModal from '@/components/ImageEditor/ImageEditModal';
+import PdfPreview from '@/components/PdfEditor/PdfPreview';
+import ImageGrid from '@/components/JpgToPdf/ImageGrid';
+import { convertPdfToImages } from '@/services/pdfService';
 
 const SEO_DESCRIPTION = 'Free online PDF editor that allows you to edit, rearrange, and customize PDF pages as images. Convert PDF to editable images, modify them, and create a new PDF. No registration required.';
 const SEO_KEYWORDS = 'pdf editor, pdf to image, image to pdf, pdf page editor, online pdf editor, free pdf editor, pdf manipulation, pdf tools';
@@ -24,19 +24,19 @@ export default function PdfEditorPage() {
     const file = acceptedFiles[0];
     if (!file) return;
 
-    // try {
-    //   setIsProcessing(true);
-    //   setPdfFile(file);
-    //   const imageBlobs = await convertPdfToImages(file);
-    //   const imageFiles = imageBlobs.map((blob, index) => 
-    //     new File([blob], `page-${index + 1}.png`, { type: 'image/png' })
-    //   );
-    //   setImages(imageFiles);
-    // } catch (error) {
-    //   console.error('Error processing PDF:', error);
-    // } finally {
-    //   setIsProcessing(false);
-    // }
+    try {
+      setIsProcessing(true);
+      setPdfFile(file);
+      const imageBlobs = await convertPdfToImages(file);
+      const imageFiles = imageBlobs.map((blob, index) => 
+        new File([blob], `page-${index + 1}.png`, { type: 'image/png' })
+      );
+      setImages(imageFiles);
+    } catch (error) {
+      console.error('Error processing PDF:', error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const handleImageClick = (index: number) => {
@@ -202,7 +202,7 @@ export default function PdfEditorPage() {
 
   return (
     <>
-      {/* <NextSeo
+      <NextSeo
         title="PDF Image Editor - Edit PDF Pages as Images | Free Online Tool"
         description={SEO_DESCRIPTION}
         canonical="https://yourdomain.com/pdf-editor"
@@ -235,7 +235,7 @@ export default function PdfEditorPage() {
             content: 'PDF Image Editor'
           }
         ]}
-      /> */}
+      />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold text-center mb-4">PDF Image Editor</h1>
@@ -267,11 +267,10 @@ export default function PdfEditorPage() {
           </div>
 
           {images.length === 0 ? (
-            <></>
-        //    <PdfPreview onDrop={onDrop} isProcessing={isProcessing} />
+            <PdfPreview onDrop={onDrop} isProcessing={isProcessing} />
           ) : (
             <div>
-              {/* <ImageGrid
+              <ImageGrid
                 files={images}
                 draggedIndex={draggedIndex}
                 dragOverIndex={dragOverIndex}
@@ -284,7 +283,7 @@ export default function PdfEditorPage() {
                 onDragEnd={handleDragEnd}
                 onDragLeave={(e) => e.preventDefault()}
                 onDeleteFile={handleDeleteFile}
-              /> */}
+              />
               <div className="flex justify-between mt-4">
                 <div className="space-x-4">
                   <label 
@@ -319,14 +318,14 @@ export default function PdfEditorPage() {
             </div>
           )}
 
-          {/* {isEditModalOpen && (
+          {isEditModalOpen && (
             <ImageEditModal
               isOpen={isEditModalOpen}
               onClose={() => setIsEditModalOpen(false)}
               image={selectedImage}
               onSave={handleSaveEditedImage}
             />
-          )} */}
+          )}
 
           <div className="mt-12 prose prose-sm max-w-none">
             <h2 className="text-xl font-semibold mb-4">How to Use:</h2>
@@ -335,8 +334,8 @@ export default function PdfEditorPage() {
               <li>Wait for the PDF pages to be converted to images</li>
               <li>Click on any image to edit it using our built-in editor</li>
               <li>Drag and drop images to rearrange pages</li>
-              {/* <li>Add more images if needed using the "Add Images" button</li> */}
-              {/* <li>Click "Download PDF" to save your edited document</li> */}
+              <li>Add more images if needed using the "Add Images" button</li>
+              <li>Click "Download PDF" to save your edited document</li>
             </ol>
 
             <h2 className="text-xl font-semibold mt-8 mb-4">Privacy & Security</h2>
