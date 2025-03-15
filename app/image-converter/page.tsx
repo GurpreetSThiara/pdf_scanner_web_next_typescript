@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-//import { NextSeo } from 'next-seo';
+import { NextSeo } from 'next-seo';
 import Dropzone from 'react-dropzone';
 import { FiUpload, FiImage, FiSettings, FiDownload, FiCrop, FiRotateCw, FiZoomIn } from 'react-icons/fi';
 import imageCompression from 'browser-image-compression';
@@ -503,7 +503,7 @@ function ImageConverterContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* <NextSeo {...seoData} /> */}
+      <NextSeo {...seoData} />
 
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-center mb-8">
