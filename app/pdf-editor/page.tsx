@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { PDFDocument } from 'pdf-lib';
 import { NextSeo } from 'next-seo';
 // import ImageEditModal from '@/components/ImageEditor/ImageEditModal';
-import PdfPreview from '@/components/PdfEditor/PdfPreview';
-import ImageGrid from '@/components/JpgToPdf/ImageGrid';
+// import PdfPreview from '@/components/PdfEditor/PdfPreview';
+// import ImageGrid from '@/components/JpgToPdf/ImageGrid';
 // import { convertPdfToImages } from '@/services/pdfService';
 
 const SEO_DESCRIPTION = 'Free online PDF editor that allows you to edit, rearrange, and customize PDF pages as images. Convert PDF to editable images, modify them, and create a new PDF. No registration required.';
@@ -267,10 +267,11 @@ export default function PdfEditorPage() {
           </div>
 
           {images.length === 0 ? (
-            <PdfPreview onDrop={onDrop} isProcessing={isProcessing} />
+            <></>
+        //    <PdfPreview onDrop={onDrop} isProcessing={isProcessing} />
           ) : (
             <div>
-              <ImageGrid
+              {/* <ImageGrid
                 files={images}
                 draggedIndex={draggedIndex}
                 dragOverIndex={dragOverIndex}
@@ -283,7 +284,7 @@ export default function PdfEditorPage() {
                 onDragEnd={handleDragEnd}
                 onDragLeave={(e) => e.preventDefault()}
                 onDeleteFile={handleDeleteFile}
-              />
+              /> */}
               <div className="flex justify-between mt-4">
                 <div className="space-x-4">
                   <label 
