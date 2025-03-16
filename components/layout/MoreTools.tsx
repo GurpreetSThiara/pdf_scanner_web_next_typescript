@@ -33,7 +33,6 @@ const Header = () => {
       { name: "Combine PDF", path: "/combine-pdf", description: "Join PDFs with advanced options" },
     ],
     conversion: [
-      { name: "image to image", path: "/image-converter", description: "Convert between different image formats (e.g., PNG to JPG)" },
       { name: "JPG to PDF", path: "/jpg-to-pdf", description: "Convert JPG images to PDF format" },
       { name: "PDF to JPG", path: "/pdf-to-jpg", description: "Extract JPG images from PDF files" },
       { name: "PNG to PDF", path: "/png-to-pdf", description: "Convert PNG images to PDF format" },
