@@ -18,7 +18,7 @@ const Header = () => {
 
   const routes = [
     { name: "Home", path: "/" },
-    { name: "PDF Editor", path: "/pdf-editor" },
+    { name: "Image to text", path: "/image-to-text" },
     { name: "JPG to PDF", path: "/jpg-to-pdf" },
     { name: "PNG to PDF", path: "/png-to-pdf" },
     { name: "Merge PDF", path: "/merge-pdf" },

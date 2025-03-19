@@ -1,5 +1,6 @@
-import { FiRotateCw, FiMove, FiMaximize, FiMinimize, FiGitCommit, FiGrid, FiSquare } from 'react-icons/fi';
+import { FiRotateCw, FiMove, FiMaximize, FiMinimize, FiGitCommit, FiGrid, FiSquare, FiScissors, FiEye, FiEyeOff, FiTrash2 } from 'react-icons/fi';
 import { EditorState } from '../types';
+import { useState } from 'react';
 
 interface TransformControlsProps {
   editorState: EditorState;
@@ -7,9 +8,30 @@ interface TransformControlsProps {
 }
 
 export function TransformControls({ editorState, onChange }: TransformControlsProps) {
+  const [clippingExpanded, setClippingExpanded] = useState(false);
+
   const handleRotationStep = (step: number) => {
     const newRotation = (editorState.rotation + step) % 360;
     onChange({ rotation: newRotation });
+  };
+
+  const toggleClipping = () => {
+    onChange({
+      clipping: {
+        ...editorState.clipping,
+        enabled: !editorState.clipping.enabled
+      }
+    });
+  };
+
+  const clearClippingPaths = () => {
+    onChange({
+      clipping: {
+        ...editorState.clipping,
+        paths: [],
+        currentPath: null
+      }
+    });
   };
 
   return (
@@ -45,6 +67,7 @@ export function TransformControls({ editorState, onChange }: TransformControlsPr
             onChange={(e) => onChange({ rotation: Number(e.target.value) })}
             className="flex-1 h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer
                      accent-blue-500 hover:accent-blue-600 transition-all"
+            aria-label="Rotation value"
           />
           <input
             type="number"
@@ -53,6 +76,7 @@ export function TransformControls({ editorState, onChange }: TransformControlsPr
             value={editorState.rotation}
             onChange={(e) => onChange({ rotation: Number(e.target.value) })}
             className="w-16 bg-gray-700 text-gray-300 rounded px-2 py-1 text-sm"
+            aria-label="Rotation value"
           />
         </div>
       </div>
@@ -76,6 +100,7 @@ export function TransformControls({ editorState, onChange }: TransformControlsPr
                 scale: { ...editorState.scale, x: Number(e.target.value) }
               })}
               className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+              aria-label="Scale X value"
             />
           </div>
           <div>
@@ -90,6 +115,7 @@ export function TransformControls({ editorState, onChange }: TransformControlsPr
                 scale: { ...editorState.scale, y: Number(e.target.value) }
               })}
               className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+              aria-label="Scale Y value"
             />
           </div>
         </div>
@@ -113,6 +139,7 @@ export function TransformControls({ editorState, onChange }: TransformControlsPr
                 skew: { ...editorState.skew, x: Number(e.target.value) }
               })}
               className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+              aria-label="Skew X value"
             />
           </div>
           <div>
@@ -126,6 +153,7 @@ export function TransformControls({ editorState, onChange }: TransformControlsPr
                 skew: { ...editorState.skew, y: Number(e.target.value) }
               })}
               className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+              aria-label="Skew Y value"
             />
           </div>
         </div>
@@ -262,6 +290,7 @@ export function TransformControls({ editorState, onChange }: TransformControlsPr
                   background: { ...editorState.background, color: e.target.value }
                 })}
                 className="w-8 h-8 rounded cursor-pointer"
+                aria-label="Background color"
               />
               <span className="text-sm text-gray-400">
                 {editorState.background.color}
@@ -285,10 +314,94 @@ export function TransformControls({ editorState, onChange }: TransformControlsPr
                   background: { ...editorState.background, padding: Number(e.target.value) }
                 })}
                 className="w-full h-1.5 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                aria-label="Background padding"
               />
             </div>
           )}
         </div>
+      </div>
+
+      {/* Clipping Path Section */}
+      <div className="space-y-3 pt-4 border-t border-gray-700">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => setClippingExpanded(!clippingExpanded)} 
+            className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white w-full justify-between"
+            aria-label={clippingExpanded ? "Collapse clipping section" : "Expand clipping section"}
+          >
+            <div className="flex items-center gap-2">
+              <FiScissors className="w-4 h-4" />
+              Clipping Path
+            </div>
+            <svg 
+              className={`w-4 h-4 transition-transform ${clippingExpanded ? 'rotate-180' : ''}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+        
+        {clippingExpanded && (
+          <div className="space-y-4 pt-2">
+            <p className="text-sm text-gray-400">
+              Create custom clipping shapes by drawing a path around your image. 
+              Anything outside the path will be transparent.
+            </p>
+            
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleClipping}
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md transition-colors
+                  ${editorState.clipping.enabled 
+                    ? 'bg-blue-500 text-white' 
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
+                aria-label={editorState.clipping.enabled ? "Disable clipping" : "Enable clipping"}
+              >
+                {editorState.clipping.enabled ? (
+                  <>
+                    <FiEye className="w-4 h-4" />
+                    <span>Enabled</span>
+                  </>
+                ) : (
+                  <>
+                    <FiEyeOff className="w-4 h-4" />
+                    <span>Disabled</span>
+                  </>
+                )}
+              </button>
+              
+              <button
+                onClick={clearClippingPaths}
+                className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-gray-700 text-gray-300 
+                         rounded-md hover:bg-gray-600 transition-colors"
+                disabled={editorState.clipping.paths.length === 0}
+                aria-label="Clear all clipping paths"
+              >
+                <FiTrash2 className="w-4 h-4" />
+                <span>Clear Paths</span>
+              </button>
+            </div>
+            
+            <div className="bg-gray-800 p-3 rounded-lg">
+              <p className="text-sm text-white mb-2">How to create a clipping path:</p>
+              <ol className="text-xs text-gray-400 list-decimal pl-4 space-y-1">
+                <li>Enable clipping mode</li>
+                <li>Click on the image to create points</li>
+                <li>To close the path, click on the first point</li>
+                <li>To cancel the current path, press ESC key</li>
+              </ol>
+            </div>
+            
+            {editorState.clipping.paths.length > 0 && (
+              <div className="text-sm text-gray-400">
+                Active paths: {editorState.clipping.paths.length}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
