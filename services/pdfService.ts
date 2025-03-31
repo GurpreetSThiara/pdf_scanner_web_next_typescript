@@ -54,7 +54,7 @@
 import * as pdfjsLib from 'pdfjs-dist';
 
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs";
 
 export const convertPdfToImages = async (pdfFile) => {
   // Create a URL for the PDF file (so pdf.js can use it)
