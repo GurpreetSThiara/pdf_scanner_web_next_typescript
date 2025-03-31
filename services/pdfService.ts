@@ -54,7 +54,7 @@
 import * as pdfjsLib from 'pdfjs-dist';
 
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@4.10.38/build/pdf.worker.min.js`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.js`;
 
 export const convertPdfToImages = async (pdfFile) => {
   // Create a URL for the PDF file (so pdf.js can use it)
